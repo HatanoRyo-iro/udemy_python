@@ -17,3 +17,14 @@ print(d)
 dict(a=10, b=20)   # これでも生成できる
 print(dict(a=10, b=20))
 print(dict([('a', 10), ('b', 20)]))
+
+
+print('------------------')
+# 使用場面
+fruits = {
+    'apple': 100,
+    'banana': 200,
+    'orange': 300
+}
+
+print(fruits['apple'])
