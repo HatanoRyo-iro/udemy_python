@@ -14,3 +14,19 @@ print('a & b', a & b)   # 積集合
 print('a | b', a | b)   # 和集合
 
 print('a ^ b', a ^ b)   # 排他的論理和
+
+
+print('----------------')
+
+# 集合の使い所
+my_friends = {'A', 'C', 'D'}
+A_friends = {'B', 'D', 'E', 'F'}
+
+print('共通の友達', my_friends & A_friends)   # 共通の友達
+
+
+# ユニークなものだけ出力したい
+f = ['apple', 'banana', 'apple', 'banana']
+print(f)   # 重複あり
+kind = set(f)
+print(kind)   # 重複をなくす
