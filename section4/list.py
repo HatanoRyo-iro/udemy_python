@@ -22,3 +22,28 @@ x = [a, n]
 print(x)
 print(x[0])
 print(x[0][1])
+
+
+print('##############')
+# リストの使い方
+
+seat = []
+min = 0
+max = 5
+print(min <= len(seat) < max)
+
+seat.append('p')
+print(min <= len(seat) < max)
+
+seat.append('p')
+seat.append('p')
+print(min <= len(seat) < max)
+
+seat.append('p')
+print(min <= len(seat) < max)
+
+seat.append('p')
+print(min <= len(seat) < max)
+
+seat.pop(0)
+print(min <= len(seat) < max)
