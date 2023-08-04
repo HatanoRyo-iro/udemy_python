@@ -24,3 +24,16 @@ print(new_tuple)
 # new_tuple = (1) + (4, 5, 6)   # エラー
 new_tuple = (1,) + (4, 5, 6)
 print(new_tuple)
+
+
+print('#################')
+# タプルの使い所
+
+chose_from_two = ('A', 'B', 'C')
+
+answer = []
+answer.append('A')
+answer.append('C')
+
+print(chose_from_two)
+print(answer)
