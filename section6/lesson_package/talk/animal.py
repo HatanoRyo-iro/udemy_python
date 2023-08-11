@@ -5,3 +5,5 @@ def sing():
 
 def cry():
     return utils.say_twice('gasngdsahkgdskahlfs')
+
+print(sing())
