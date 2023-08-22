@@ -18,7 +18,7 @@ def start():
     
     if is_file:
         # print('ファイルあるよ')
-        with open(csv_path, 'r+') as rank_csv:
+        with open(csv_path, 'r') as rank_csv:
             reader = csv.DictReader(rank_csv)
             
             rank_dist = {}
@@ -59,11 +59,15 @@ def start():
                     print('他の文字が入力されました。')
                     break
                 
+    
+        with open(csv_path, 'w') as rank_csv:
+            
+            
             cprint("==============================================", 'green')
             cprint(f"{name}さん。どこのレストランが好きですか？", 'green')
             cprint(f"{name}, which restaurant do you like?", 'green')
             cprint("==============================================", 'green')
-    
+            
             while(1):
                 like_restaurant = input()
                 Like_Restaurant = like_restaurant.title()
@@ -76,9 +80,28 @@ def start():
                 add_count = rank_dist[Like_Restaurant]
                 add_count += 1
                 rank_dist[Like_Restaurant] = add_count
+                
+                
+                
+                sorted_rank_dict = dict(sorted(rank_dist.items(), reverse=True))
+                
+                print('###########################')
+                print(type(sorted_rank_dict))
+                print('変更後:', sorted_rank_dict)
+                print('###########################')
+                
+                
+                
+                
+                # fieldnames = ['NAME', 'COUNT']
+                # writer = csv.DictWriter(rank_csv, fieldnames=fieldnames)
+                # writer.writeheader()
+                
+                
+                
             
-            else:
-                writer.writerow({'NAME': Like_Restaurant, 'COUNT': 1})
+            # else:
+            #     writer.writerow({'NAME': Like_Restaurant, 'COUNT': 1})
                 
                 
     
@@ -113,4 +136,3 @@ def start():
     cprint('Have a good day!', 'green')
     cprint("==============================================", 'green')
     
-    print('変更後rank_dist:', rank_dist)
