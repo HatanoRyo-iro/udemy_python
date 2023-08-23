@@ -48,11 +48,9 @@ def start():
                 no_ans = ['No', 'no', 'N', 'n']
                 
                 if answer in yes_ans:
-                    print('yes', answer)
                     break
                     
                 elif answer in no_ans:
-                    print('no', answer)
                     continue
                 
                 else:
@@ -76,6 +74,7 @@ def start():
                 
             print('変更前rank_dist:', rank_dist)
             
+            # csvファイルのランキング内にすでに名前があったら            
             if Like_Restaurant in rank_dist:
                 add_count = rank_dist[Like_Restaurant]
                 add_count += 1
@@ -83,25 +82,34 @@ def start():
                 
                 
                 
-                sorted_rank_dict = dict(sorted(rank_dist.items(), reverse=True))
+                sorted_rank_dict = dict(sorted(rank_dist.items(), key=lambda x:x[1], reverse=True))
                 
                 print('###########################')
                 print(type(sorted_rank_dict))
                 print('変更後:', sorted_rank_dict)
                 print('###########################')
                 
+
+                
+                fieldnames = ['NAME', 'COUNT']
+                writer = csv.DictWriter(rank_csv, fieldnames=fieldnames)
+                writer.writeheader()
+                
+                for k,v in sorted_rank_dict.items():
+                    writer.writerow({'NAME':k, 'COUNT':v})
                 
                 
                 
-                # fieldnames = ['NAME', 'COUNT']
-                # writer = csv.DictWriter(rank_csv, fieldnames=fieldnames)
-                # writer.writeheader()
+            # csvファイルのランキング内になかったら（新規レストラン）
+            else:
+                fieldnames = ['NAME', 'COUNT']
+                writer = csv.DictWriter(rank_csv, fieldnames=fieldnames)
+                writer.writeheader()
                 
-                
-                
-            
-            # else:
-            #     writer.writerow({'NAME': Like_Restaurant, 'COUNT': 1})
+                for k,v in rank_dist.items():
+                    writer.writerow({'NAME':k, 'COUNT':v})
+                    
+                writer.writerow({'NAME':Like_Restaurant, 'COUNT':1})
                 
                 
     
