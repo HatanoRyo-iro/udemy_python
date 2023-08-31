@@ -42,3 +42,7 @@ with open('section13_web_and_network/test.json', 'w') as f:
 print('##########')
 with open('section13_web_and_network/test.json', 'r') as f:
     print(json.load(f))
+    
+"""
+Pythonスクリプト内でJSONを扱う場合は、dumps, loadsなどのsがつく
+"""
