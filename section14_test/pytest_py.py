@@ -1,44 +1,19 @@
 import pytest
-
 import calculation
 
-
-is_release = False
 
 class TestCal(object):
     
     @classmethod
     def setup_class(cls):
-        print('start')
         cls.cal = calculation.Cal()
         
-    @classmethod
-    def teardown_class(cls):
-        print('end')
-        del cls.cal
+    def test_add_num_and_double(self, request):
+        os_name = request.config.getoption('--os-name')
+        print(os_name)
         
-    def setup_method(self, method):
-        print('method={}'.format(method.__name__))
-        #self.cal = calculation.Cal()
-    
-    def teardown_method(self, method):
-        print('method={}'.format(method.__name__))
-        #del self.cal
-    
-    def test_add_num_and_double(self):
+        if os_name == 'mac':
+            print('ls')
+        elif os_name == 'windows':
+            print('dir')
         assert self.cal.add_num_and_double(1, 1) == 4
-        
-    #@pytest.mark.skip(reason='skip!')
-    @pytest.mark.skipif(is_release==True, reason='skip!!')
-    def test_add_num_and_double_raise(self):
-        with pytest.raises(ValueError):
-            self.cal.add_num_and_double('1', '1')
-    
-    
-    
-#     #@unittest.skip('skip!')
-#     @unittest.skipIf(release_name=='lesson', 'skip!!')
-#     def test_add_num_and_double(self):
-#         self.assertEqual(self.cal.add_num_and_double(1, 1), 4)
-   
-
