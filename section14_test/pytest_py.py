@@ -3,6 +3,7 @@ import pytest
 import calculation
 
 
+is_release = False
 
 class TestCal(object):
     
@@ -23,10 +24,12 @@ class TestCal(object):
     def teardown_method(self, method):
         print('method={}'.format(method.__name__))
         #del self.cal
-        
+    
     def test_add_num_and_double(self):
         assert self.cal.add_num_and_double(1, 1) == 4
         
+    #@pytest.mark.skip(reason='skip!')
+    @pytest.mark.skipif(is_release==True, reason='skip!!')
     def test_add_num_and_double_raise(self):
         with pytest.raises(ValueError):
             self.cal.add_num_and_double('1', '1')
