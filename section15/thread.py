@@ -4,27 +4,41 @@ import time
 
 logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
 
-def worker1(x, y=1):
+def worker1(d, lock):
     logging.debug('start')
-    logging.debug(x)
-    logging.debug(y)
+    """
+    これでも同じ結果になる。withステートメントを使えば、lock.release()を書かなくてもよい。
+    
+    with lock:
+        i = d['x']
+        time.sleep(5)
+        d['x'] = i + 1
+        logging.debug(d)
+    """
+    lock.acquire()
+    i = d['x']
     time.sleep(5)
+    d['x'] = i + 1
+    logging.debug(d)
+    with lock:
+        d['x'] = i + 1
+    lock.release()
     logging.debug('end')
     
-def worker2():
+def worker2(d, lock):
     logging.debug('start')
-    time.sleep(2)
+    lock.acquire()
+    i = d['x']
+    d['x'] = i + 1
+    logging.debug(d)
+    lock.release()
     logging.debug('end')
     
 if __name__ == '__main__':
-    t = threading.Timer(3, worker1, args=(100,), kwargs={'y':200})
-    t.start()
     
-    # t1 = threading.Thread(target=worker1)
-    # t1.daemon = True
-    # t2 = threading.Thread(target=worker2)
-    # t1.start()
-    # t2.start()
-    # print('started')
-    # t1.join()
-    # t2.join()   # これは書いても書かなくてもいい（明示的に書いてるだけ）
+    d = {'x': 0}
+    lock = threading.RLock()
+    t1 = threading.Thread(target=worker1, args = (d, lock))
+    t2 = threading.Thread(target=worker2, args = (d, lock))
+    t1.start()
+    t2.start()
