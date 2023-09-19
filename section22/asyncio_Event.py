@@ -1,5 +1,6 @@
 import asyncio
 
+
 async def worker1(event):
     print('worker1 start')
     await event.wait()
